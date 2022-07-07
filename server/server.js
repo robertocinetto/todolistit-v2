@@ -14,6 +14,10 @@ app.use(express.static(path.resolve(__dirname, '../client/build')))
 const routes = require('./routes/index')
 app.use('/', routes)
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'))
+})
+
 //mongoose import and setup
 const mongoose = require('mongoose')
 mongoose.connect(process.env.DATABASE_URL)
