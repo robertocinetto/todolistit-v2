@@ -12,7 +12,7 @@ const path = require('path')
 const routes = require('./routes/index')
 app.use('/', routes)
 
-const publicPath = path.resolve(__dirname, '../client/public')
+const publicPath = path.resolve(__dirname, '../client/build')
 app.use(express.static(publicPath))
 app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'))
