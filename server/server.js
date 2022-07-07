@@ -14,7 +14,7 @@ app.use(express.static(path.resolve(__dirname, '../client/build')))
 const routes = require('./routes/index')
 app.use('/', routes)
 
-const publicPath = path.join(__dirname, '..', 'client/public')
+const publicPath = path.join(__dirname, '..', 'client/build')
 app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'))
 })
