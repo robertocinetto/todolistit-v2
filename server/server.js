@@ -18,7 +18,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'))
 })
 
-//mongoose import and setup
+//mongoose import and  setup
 const mongoose = require('mongoose')
 mongoose.connect(process.env.DATABASE_URL)
 const db = mongoose.connection
