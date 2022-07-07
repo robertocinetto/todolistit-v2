@@ -8,9 +8,15 @@ const PORT = process.env.PORT || 5001
 
 const path = require('path')
 
+// import demo data from file
+const demoData = require('./api/todos.json')
+app.get('/api/v1/todos', (req, res) => {
+  res.send(demoData)
+})
+
 // import routes file and set express to use it
-const routes = require('./routes/index')
-app.use('/', routes)
+// const routes = require('./routes/index')
+// app.use('/', routes)
 
 // const publicPath = path.resolve(__dirname, '../client/build')
 // app.use(express.static(publicPath))
