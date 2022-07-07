@@ -4,7 +4,11 @@ if (process.env.NODE_ENV !== 'production') {
 
 const express = require('express')
 const app = express()
-const PORT = 5001
+const PORT = process.env.PORT || 5001
+
+const path = require('path')
+
+app.use(express.static(path.resolve(__dirname, '../client/build')))
 
 // import routes file and set express to use it
 const routes = require('./routes/index')
