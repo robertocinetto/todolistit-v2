@@ -12,12 +12,8 @@ const path = require('path')
 const routes = require('./routes/index')
 app.use('/', routes)
 
+//serve react build directory
 app.use(express.static(path.resolve(__dirname, '../client/build')))
-// const publicPath = path.resolve(__dirname, '../client/build')
-// app.use(express.static(publicPath))
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(publicPath, 'index.html'))
-// })
 
 //mongoose import and  setup
 const mongoose = require('mongoose')
@@ -30,3 +26,4 @@ db.once('open', () => console.error('Connnected to Mongoose'))
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`)
 })
+git reset --soft HEAD~9
