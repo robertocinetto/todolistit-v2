@@ -8,18 +8,18 @@ const PORT = process.env.PORT || 5001
 
 const path = require('path')
 
-app.use(express.static(path.resolve(__dirname, '../client/build')))
-
 // import routes file and set express to use it
 const routes = require('./routes/index')
 app.use('/', routes)
 
-const publicPath = path.join(__dirname, '..', 'public')
-app.get('*', (req, res) => {
-  res.sendFile(path.join(publicPath, 'index.html'))
-})
+app.use(express.static(path.resolve(__dirname, '../client/build')))
+// const publicPath = path.resolve(__dirname, '../client/build')
+// app.use(express.static(publicPath))
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(publicPath, 'index.html'))
+// })
 
-//mongoose import and setup
+//mongoose import and  setup
 const mongoose = require('mongoose')
 mongoose.connect(process.env.DATABASE_URL)
 const db = mongoose.connection
