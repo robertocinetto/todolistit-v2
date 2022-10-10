@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@import "primereact/resources/themes/tailwind-light/theme.css";  
+@import "primereact/resources/primereact.min.css";                  
+@import "primeicons/primeicons.css";        
+/* @import 'primeflex/primeflex.css';  */
+
+@layer base {
+  h1, h2, h3, h4, h5, h6, p, a, li {
+    font-family: 'Cabin',sans-serif;
+  }
+  h1 {
+    @apply text-6xl mb-7;
+  }
+  h2 {
+    @apply text-4xl mb-5;
+  }
+  h3 {
+    @apply text-3xl mb-5;
+  }
+
+  h4 {
+    @apply text-xl mb-5;
+  }
+  p {
+    @apply mb-4;
+    font-weight: 400;
+  }
+}
