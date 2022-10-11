@@ -1,11 +1,18 @@
 import { getAuth, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { db } from '../firebase'
 import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
-import { UserType, UserContext } from '../contexts/UserContext'
-import { useContext } from 'react'
+import { UserContext } from '../contexts/UserContext'
+import { useContext, useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 const Login = () => {
+  const router = useRouter()
   const { user, setUser } = useContext(UserContext)
+  const auth = getAuth()
+
+  useEffect(() => {
+    console.log('%cLogin rendered', 'color:orange')
+  }, [])
 
   const onGoogleClick = async () => {
     try {
@@ -26,6 +33,7 @@ const Login = () => {
         })
       }
       setUser(user)
+      router.push('/todos')
     } catch (error) {
       console.log(error)
     }
