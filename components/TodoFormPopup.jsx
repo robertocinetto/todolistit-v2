@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useToastContext } from '../hooks/useToastContext'
 
-import { collection, addDoc, Timestamp } from 'firebase/firestore'
+import { UserContext } from '../contexts/UserContext'
+
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
 
 import { Dialog } from 'primereact/dialog'
@@ -10,6 +12,7 @@ import { Dropdown } from 'primereact/dropdown'
 import { Button } from 'primereact/button'
 
 const TodoFormPopup = () => {
+  const { user, setUser } = useContext(UserContext)
   const [displayPopup, setDisplayPopup] = useState(false)
   const [todo, setTodo] = useState('')
   const [category, setCategory] = useState()
@@ -29,8 +32,11 @@ const TodoFormPopup = () => {
   const addTodo = async () => {
     try {
       await addDoc(collection(db, 'todos'), {
+        done: false,
         todo,
         category,
+        username: user.username,
+        createdAt: serverTimestamp(),
       })
       showSuccess(undefined, undefined, 'Todo successfully added!')
     } catch (e) {
