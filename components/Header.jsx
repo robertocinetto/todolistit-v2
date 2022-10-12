@@ -4,7 +4,7 @@ import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
 
 import { useEffect, useState, useContext, useRef } from 'react'
 import { useTheme } from 'next-themes'
-import { UserContext, User } from '../contexts/UserContext'
+import { UserContext } from '../contexts/UserContext'
 import { useRouter } from 'next/router'
 
 /* FRAMEWORKS COMPONENTS */
@@ -12,6 +12,8 @@ import { DarkModeSwitch } from 'react-toggle-dark-mode'
 import { Menu } from 'primereact/menu'
 import { Button } from 'primereact/button'
 import { Chip } from 'primereact/chip'
+import Link from 'next/link'
+import Image from 'next/future/image'
 
 const Header = () => {
   const [switchState, setSwitchState] = useState(false)
@@ -23,7 +25,6 @@ const Header = () => {
 
   useEffect(() => {
     console.log('%cHeader rendered', 'color:orange')
-    console.log(user)
 
     if (localStorage.theme === 'dark' || resolvedTheme === 'dark') {
       setSwitchState(true)
@@ -32,7 +33,7 @@ const Header = () => {
     }
   }, [resolvedTheme, user])
 
-  const toggleTheme = (checked) => {
+  const toggleTheme = checked => {
     if (checked) {
       setSwitchState(true)
       setTheme('dark')
@@ -41,7 +42,6 @@ const Header = () => {
       setTheme('light')
     }
   }
-
 
   const onSignOut = () => {
     signOut(auth)
@@ -79,55 +79,75 @@ const Header = () => {
   ]
 
   return (
-    <div className="p-4 flex items-center justify-end">
-      {user ? (
-        <>
+    <div className='max-w-screen-2xl xl:mx-auto px-5'>
+      <div className={`flex items-center ${router.pathname === '/todos' ? 'justify-between' : 'justify-end p-5'}`}>
+        {router.pathname === '/todos' && (
+          <div className='cursor-pointer h-24 w-44 lg:w-52 relative flex items-center'>
+            <Link href='/todos'>
+              <a>
+                <Image
+                  src='/logo.svg'
+                  layout='fill'
+                  className='object-contain'
+                  alt=''
+                  width='70'
+                  height='70'
+                />
+              </a>
+            </Link>
+          </div>
+        )}
+        <div className='flex items-center'>
+          {user ? (
+            <>
               <Chip
                 label={user.name}
-                image={user.customProfileImg ? user.customProfileImg : user.userImg} 
-                className="hidden md:inline-flex"
+                image={user.customProfileImg ? user.customProfileImg : user.userImg}
+                className='hidden md:inline-flex'
               />
               <img
                 src={user.customProfileImg ? user.customProfileImg : user.userImg}
-                alt="user-image"
-                className="h-9 rounded-full cursor-pointer md:hidden"
+                alt='user-image'
+                className='h-9 rounded-full cursor-pointer md:hidden'
               />
               <DarkModeSwitch
-                className="ml-6"
+                className='ml-6'
                 checked={switchState}
                 onChange={toggleTheme}
                 size={30}
-                moonColor="#6D28D9"
-                sunColor="#6D28D9"
+                moonColor='#6D28D9'
+                sunColor='#6D28D9'
               />
               <Button
-                className="p-button-rounded p-button-text p-button-sm p-button-plain ml-2"
-                aria-label="Settings"
-                icon="pi pi-cog"
+                className='p-button-rounded p-button-text p-button-sm p-button-plain ml-2'
+                aria-label='Settings'
+                icon='pi pi-cog'
                 onClick={event => menu.current.toggle(event)}
-                aria-controls="popup_menu"
+                aria-controls='popup_menu'
                 aria-haspopup
               />
               <Menu
                 model={items}
                 popup
                 ref={menu}
-                id="popup_menu"
+                id='popup_menu'
               />
-              </>
+            </>
           ) : (
-            <> 
+            <>
               <DarkModeSwitch
-                className="ml-6"
+                className='ml-6'
                 checked={switchState}
                 onChange={toggleTheme}
                 size={30}
-                moonColor="#6D28D9"
-                sunColor="#6D28D9"
+                moonColor='#6D28D9'
+                sunColor='#6D28D9'
               />
-            </> 
+            </>
           )}
         </div>
+      </div>
+    </div>
   )
 }
 

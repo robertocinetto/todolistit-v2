@@ -1,15 +1,18 @@
 import '../styles/globals.css'
 import { RecoilRoot } from 'recoil'
 import { ThemeProvider } from 'next-themes'
-import { UserContext } from '../contexts/UserContext'
 import { useEffect, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { db, auth } from '../firebase'
 import { useRouter } from 'next/router'
 
+import { UserContext } from '../contexts/UserContext'
+import { ToastContextProvider } from '../contexts/ToastContext'
+
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null)
+  const [toast, setToast] = useState([])
   const router = useRouter()
 
   useEffect(() => {
@@ -30,11 +33,17 @@ function MyApp({ Component, pageProps }) {
     })
   }, [])
 
+  const showSuccess = () => {
+    toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'Message Content', life: 3000 })
+  }
+
   return (
     <RecoilRoot>
-      <ThemeProvider attribute="class">
+      <ThemeProvider attribute='class'>
         <UserContext.Provider value={{ user, setUser }}>
-          <Component {...pageProps} />
+          <ToastContextProvider>
+            <Component {...pageProps} />
+          </ToastContextProvider>
         </UserContext.Provider>
       </ThemeProvider>
     </RecoilRoot>
