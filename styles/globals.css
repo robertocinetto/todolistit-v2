@@ -36,3 +36,7 @@
   padding: 0.55625rem;
   width: 2.3rem;
 }
+
+.p-toast {
+  @apply w-[22rem]
+}
