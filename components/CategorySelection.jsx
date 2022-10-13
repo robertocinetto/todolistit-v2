@@ -10,6 +10,7 @@ import { RadioButton } from 'primereact/radiobutton'
 import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
 import { InputText } from 'primereact/inputtext'
+import { Dropdown } from 'primereact/dropdown'
 
 import { useRecoilState } from 'recoil'
 import { categoriesState } from '../atom/categoriesAtom'
@@ -19,6 +20,7 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
   const [category, setCategory] = useState(null)
   const [newCategory, setNewCategory] = useState('')
   const [categories, setCategories] = useRecoilState(categoriesState)
+  const [dropdownSelectedCategory, setDropdownSelectedCategory] = useState(null)
 
   // const [selectedCategory, setSelectedCategory] = useState(categories)
   const showSuccess = useToastContext()
@@ -78,6 +80,14 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
 
   return (
     <div className='flex flex-col justify-between '>
+      <Dropdown
+        value={selectedCategory}
+        options={categories}
+        onChange={e => handleCategoryChange(e.value)}
+        optionLabel='categoryName'
+        placeholder='Select a Category'
+        className='w-full mb-2 md:hidden'
+      />
       {categories.map(category => {
         return (
           <div
@@ -90,9 +100,10 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
               value={category}
               onChange={e => handleCategoryChange(e.value)}
               checked={selectedCategory.id === category.id}
+              className='hidden md:block'
             />
             <label
-              className='ml-3'
+              className='ml-3 hidden md:block'
               htmlFor={category.id}
             >
               {category.categoryName}
