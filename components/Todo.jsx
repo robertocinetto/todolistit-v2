@@ -8,19 +8,17 @@ import { ToggleButton } from 'primereact/togglebutton'
 import { InputText } from 'primereact/inputtext'
 
 const Todo = ({ id, todo, done }) => {
-  const [doneState, setDoneState] = useState(done)
+  // const [doneState, setDoneState] = useState(done)
 
   useEffect(() => {
     console.log('%cTodo rendered', 'color:orange')
   }, [])
 
   const onToggleClick = async e => {
-    console.log(id)
     try {
       await updateDoc(doc(db, 'todos', id), {
-        done: doneState,
+        done: !done,
       })
-      setDoneState(e)
     } catch (e) {
       console.log(e)
     }
@@ -29,7 +27,7 @@ const Todo = ({ id, todo, done }) => {
   return (
     <div className='p-3 mb-2 border rounded border-zinc-200 dark:border-zinc-600 flex items-center'>
       <ToggleButton
-        checked={doneState}
+        checked={done}
         onChange={e => onToggleClick(e.value)}
         onIcon='pi pi-times'
         offIcon='pi pi-check'
