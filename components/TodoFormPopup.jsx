@@ -112,7 +112,7 @@ const TodoFormPopup = () => {
         />
       </Dialog>
 
-      <div className='absolute bottom-o right-0 mr-3 mb-3'>
+      <div className='absolute bottom-0 right-0 mr-3 mb-3'>
         <Button
           icon='pi pi-plus'
           className='p-button-rounded bg-violet-700 hover:bg-violet-500 border-violet-700 hover:border-violet-500'
