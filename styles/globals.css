@@ -37,6 +37,51 @@
   width: 2.3rem;
 }
 
+/* TOAST */
 .p-toast {
   @apply w-[22rem]
+}
+
+/* DROPDOWN */
+.dark .p-dropdown,
+.dark .p-dropdown:not(.p-disabled):hover {
+  @apply bg-zinc-900 border-zinc-600 ;
+}
+.dark .p-dropdown-label.p-inputtext {
+  @apply text-zinc-400;
+}
+.dark .p-dropdown-panel {
+  @apply bg-zinc-800 border-zinc-400;
+}
+.dark .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  @apply text-zinc-300
+}
+.dark .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  @apply bg-violet-700 text-violet-100
+}
+
+/* DIALOG */
+.dark .p-dialog .p-dialog-content {
+  @apply bg-zinc-800 ;
+}
+
+/* INPUT TEXT */
+.dark .p-inputtext,
+.p-inputtext:enabled:hover {
+  @apply bg-zinc-900 border-zinc-600;
+}
+
+/* BUTTONS */
+.dark .p-button {
+  @apply bg-violet-700 border-violet-600 
+}
+.dark .p-togglebutton.p-button .p-button-icon-left, 
+.dark .p-togglebutton.p-button .p-button-icon-right,
+.dark .p-button.p-button-sm .p-button-icon {
+  @apply text-violet-100
+}
+
+/*  CHIP  */
+.dark .p-chip {
+  @apply  bg-violet-900 text-violet-50;
 }

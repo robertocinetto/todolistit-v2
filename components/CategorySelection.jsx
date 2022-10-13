@@ -123,7 +123,9 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
         visible={displayPopup}
         style={{ width: '400px' }}
         onHide={() => onHide('displayPopup')}
-        className='pb-5'
+        contentClassName='!py-5 !mx-5'
+        dismissableMask
+        showHeader={false}
       >
         <InputText
           id='newCategory'
