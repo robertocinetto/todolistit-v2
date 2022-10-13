@@ -88,29 +88,33 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
         placeholder='Select a Category'
         className='w-full mb-2 md:hidden'
       />
-      {categories.map(category => {
-        return (
-          <div
-            key={category.id}
-            className='field-radiobutton flex items-center'
-          >
-            <RadioButton
-              inputId={category.id}
-              name='category'
-              value={category}
-              onChange={e => handleCategoryChange(e.value)}
-              checked={selectedCategory.id === category.id}
-              className='hidden md:block'
-            />
-            <label
-              className='ml-3 hidden md:block'
-              htmlFor={category.id}
+      <div>
+        {categories.map(category => {
+          return (
+            <div
+              key={category.id}
+              className='field-radiobutton flex items-center '
             >
-              {category.categoryName}
-            </label>
-          </div>
-        )
-      })}
+              <label
+                className={`hidden md:block w-full p-2 mb-2 border border-zinc-600 rounded transition-colors ${
+                  selectedCategory.id === category.id ? 'bg-zinc-700 border-l-8 border-l-violet-700' : ''
+                }`}
+                htmlFor={category.id}
+              >
+                <RadioButton
+                  inputId={category.id}
+                  name='category'
+                  value={category}
+                  onChange={e => handleCategoryChange(e.value)}
+                  checked={selectedCategory.id === category.id}
+                  className='hidden'
+                />
+                {category.categoryName}
+              </label>
+            </div>
+          )
+        })}
+      </div>
 
       <Button
         onClick={showNewCategoryDialog}
@@ -123,7 +127,7 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
         visible={displayPopup}
         style={{ width: '400px' }}
         onHide={() => onHide('displayPopup')}
-        contentClassName='!py-5 !mx-5'
+        contentClassName='!py-5 !mx-5 rounded-md'
         dismissableMask
         showHeader={false}
       >

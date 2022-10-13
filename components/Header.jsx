@@ -53,13 +53,13 @@ const Header = () => {
     {
       label: 'Options',
       items: [
-        {
-          label: 'Profile',
-          icon: 'pi pi-user',
-          command: () => {
-            router.push('/profile')
-          },
-        },
+        // {
+        //   label: 'Profile',
+        //   icon: 'pi pi-user',
+        //   command: () => {
+        //     router.push('/profile')
+        //   },
+        // },
         {
           label: 'Reset dark mode',
           icon: 'pi pi-refresh',

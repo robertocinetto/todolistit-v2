@@ -25,17 +25,17 @@ const Todo = ({ id, todo, done }) => {
   }
 
   return (
-    <div className='p-3 mb-2 first:mb-0 border rounded border-zinc-100 dark:border-zinc-600 flex items-center'>
+    <div className='p-3 mb-2 last:mb-0 border rounded border-zinc-100 dark:border-zinc-600 flex items-center'>
       <ToggleButton
         checked={done}
         onChange={e => onToggleClick(e.value)}
-        onIcon='pi pi-times'
+        onIcon='pi pi-check'
         offIcon='pi pi-check'
         aria-label='Confirmation'
         offLabel=''
         className='p-button-xs'
       />
-      <div className='ml-4'>{todo}</div>
+      <div className={`ml-4 ${done ? 'line-through text-zinc-400' : ''}`}>{todo}</div>
     </div>
   )
 }

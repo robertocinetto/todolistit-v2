@@ -72,12 +72,24 @@
 }
 
 /* BUTTONS */
-.dark .p-button {
-  @apply bg-violet-700 border-violet-600 
+
+.p-togglebutton.p-button {
+  @apply bg-zinc-700 border-zinc-500
 }
-.dark .p-togglebutton.p-button .p-button-icon-left, 
-.dark .p-togglebutton.p-button .p-button-icon-right,
-.dark .p-button.p-button-sm .p-button-icon {
+.p-button,
+.p-togglebutton.p-button.p-highlight {
+  @apply bg-violet-700 border-violet-600 transition-colors
+}
+.p-button:enabled:hover,
+.p-togglebutton.p-button.p-highlight:hover,
+.p-togglebutton.p-button:not(.p-disabled):not(.p-highlight):hover {
+  @apply bg-violet-600 border-violet-600 text-violet-100
+}
+.p-togglebutton.p-button .p-button-icon-left, 
+.p-togglebutton.p-button .p-button-icon-right,
+.dark .p-button.p-button-sm .p-button-icon,
+.p-togglebutton.p-button:not(.p-disabled):not(.p-highlight):hover .p-button-icon-left, 
+.p-togglebutton.p-button:not(.p-disabled):not(.p-highlight):hover .p-button-icon-right {
   @apply text-violet-100
 }
 

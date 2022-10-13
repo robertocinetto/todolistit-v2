@@ -84,7 +84,7 @@ const TodoFormPopup = () => {
         visible={displayPopup}
         style={{ width: '400px' }}
         onHide={() => onHide('displayPopup')}
-        contentClassName='!py-5 !mx-5'
+        contentClassName='!py-5 !mx-5 rounded-md'
         dismissableMask
         showHeader={false}
       >

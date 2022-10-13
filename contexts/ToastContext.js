@@ -22,6 +22,7 @@ export const ToastContextProvider = ({ children }) => {
       <Toast
         key={toast}
         ref={toast}
+        position='bottom-right'
       />
     </ToastContext.Provider>
   )

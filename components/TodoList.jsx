@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 
 import { UserContext } from '../contexts/UserContext'
 
-import { onSnapshot, query, collection, where } from 'firebase/firestore'
+import { onSnapshot, query, collection, where, orderBy } from 'firebase/firestore'
 import { db } from '../firebase'
 
 import Todo from './Todo'
@@ -14,14 +14,14 @@ const TodoList = ({ selectedCategory }) => {
   useEffect(() => {
     console.log('%cTodo list rendered', 'color:orange')
     if (user) {
-      console.log(user.username)
       let _todos = []
       // const unsub = onSnapshot(query(collection(db, 'todos')), collection => {
       const unsub = onSnapshot(
         query(
           collection(db, 'todos'),
           where('categoryId', '==', selectedCategory.id),
-          where('username', '==', user.username)
+          where('username', '==', user.username),
+          orderBy('done')
         ),
         collection => {
           //since the snapshot doesn't get the id of each doc, ids needs to be collected in another way
