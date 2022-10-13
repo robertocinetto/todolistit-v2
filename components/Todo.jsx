@@ -9,7 +9,6 @@ import { InputText } from 'primereact/inputtext'
 
 const Todo = ({ id, todo, done }) => {
   const [doneState, setDoneState] = useState(done)
-  const [bodyState, setBodyState] = useState(todo)
 
   useEffect(() => {
     console.log('%cTodo rendered', 'color:orange')
@@ -38,7 +37,7 @@ const Todo = ({ id, todo, done }) => {
         offLabel=''
         className='p-button-xs'
       />
-      <div className='ml-4'>{bodyState}</div>
+      <div className='ml-4'>{todo}</div>
     </div>
   )
 }

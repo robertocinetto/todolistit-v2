@@ -11,30 +11,27 @@ import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import { Button } from 'primereact/button'
 
+import { useRecoilState } from 'recoil'
+import { categoriesState } from '../atom/categoriesAtom'
+
 const TodoFormPopup = () => {
   const { user, setUser } = useContext(UserContext)
   const [displayPopup, setDisplayPopup] = useState(false)
   const [todo, setTodo] = useState('')
   const [category, setCategory] = useState()
+  const [categories, setCategories] = useRecoilState(categoriesState)
   const showSuccess = useToastContext()
 
   useEffect(() => {
     console.log('%cTodoFormPopup rendered', 'color:orange')
-
-    console.log(category)
   }, [category])
-
-  const categories = [
-    { name: 'Undefined', code: 'undefined' },
-    { name: 'Category', code: 'category' },
-  ]
 
   const addTodo = async () => {
     try {
       await addDoc(collection(db, 'todos'), {
         done: false,
         todo,
-        category,
+        categoryId: category.id,
         username: user.username,
         createdAt: serverTimestamp(),
       })
@@ -55,6 +52,26 @@ const TodoFormPopup = () => {
   const onHide = () => {
     setDisplayPopup(false)
   }
+
+  const selectedCategoryTemplate = (option, props) => {
+    if (option) {
+      return (
+        <div className='country-item country-item-value'>
+          <div>{option.categoryName}</div>
+        </div>
+      )
+    }
+
+    return <span>{props.placeholder}</span>
+  }
+  const selectedCategoryOptionTemplate = option => {
+    return (
+      <div className='country-item'>
+        <div>{option.categoryName}</div>
+      </div>
+    )
+  }
+
   return (
     <>
       <Dialog
@@ -78,6 +95,8 @@ const TodoFormPopup = () => {
           optionLabel='name'
           placeholder='Select a category'
           className='w-full mt-3 p-inputtext-sm'
+          valueTemplate={selectedCategoryTemplate}
+          itemTemplate={selectedCategoryOptionTemplate}
         />
         <Button
           label='Add todo'
