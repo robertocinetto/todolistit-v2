@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 import { useToastContext } from '../hooks/useToastContext'
 import { UserContext } from '../contexts/UserContext'
 
-import { addDoc, collection, onSnapshot, query, serverTimestamp } from 'firebase/firestore'
+import { addDoc, collection, onSnapshot, query, serverTimestamp, where } from 'firebase/firestore'
 import { db } from '../firebase'
 
 import { RadioButton } from 'primereact/radiobutton'
@@ -27,28 +27,33 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
   useEffect(() => {
     console.log('%cTodo category selection rendered', 'color:orange')
 
-    let _categories = []
-    const unsub = onSnapshot(query(collection(db, 'categories')), collection => {
-      //since the snapshot doesn't get the id of each doc, ids needs to be collected in another way
-      //I had to get ids to be able to delete single docs from the collection
+    if (user) {
+      let _categories = []
+      const unsub = onSnapshot(
+        query(collection(db, 'categories'), where('username', '==', user.username)),
+        collection => {
+          //since the snapshot doesn't get the id of each doc, ids needs to be collected in another way
+          //I had to get ids to be able to delete single docs from the collection
 
-      //get the collection docs
-      const categoriesCollection = collection.docs
+          //get the collection docs
+          const categoriesCollection = collection.docs
 
-      //build an array of ids from the collection
-      let ids = categoriesCollection.map(category => category.id)
-      //build an array of objects containing the db data
-      let categoriesData = categoriesCollection.map(category => category.data())
-      //build an alternative array chaining ids and data
-      _categories = categoriesData.map((category, i) => {
-        return {
-          ...category,
-          id: ids[i],
+          //build an array of ids from the collection
+          let ids = categoriesCollection.map(category => category.id)
+          //build an array of objects containing the db data
+          let categoriesData = categoriesCollection.map(category => category.data())
+          //build an alternative array chaining ids and data
+          _categories = categoriesData.map((category, i) => {
+            return {
+              ...category,
+              id: ids[i],
+            }
+          })
+          setCategories(_categories)
         }
-      })
-      setCategories(_categories)
-    })
-  }, [selectedCategory])
+      )
+    }
+  }, [])
 
   const addCategory = async () => {
     try {

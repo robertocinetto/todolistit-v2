@@ -20,7 +20,7 @@ const TodoFormPopup = () => {
   const [todo, setTodo] = useState('')
   const [category, setCategory] = useState()
   const [categories, setCategories] = useRecoilState(categoriesState)
-  const showSuccess = useToastContext()
+  const { showSuccess, showWarning } = useToastContext()
 
   useEffect(() => {
     console.log('%cTodoFormPopup rendered', 'color:orange')
@@ -46,7 +46,12 @@ const TodoFormPopup = () => {
   }
 
   const onClick = () => {
-    setDisplayPopup(true)
+    console.log(categories)
+    if (categories.length === 0) {
+      showWarning(undefined, undefined, 'Create a category first')
+    } else {
+      setDisplayPopup(true)
+    }
   }
 
   const onHide = () => {

@@ -16,10 +16,10 @@ const Login = () => {
 
   const onGoogleClick = async () => {
     try {
-      const auth = getAuth()
+      let auth = getAuth()
       const provider = new GoogleAuthProvider()
       await signInWithPopup(auth, provider)
-      const user = auth.currentUser.providerData[0]
+      let user = auth.currentUser.providerData[0]
       const docRef = doc(db, 'users', user.uid)
       const docSnap = await getDoc(docRef)
       if (!docSnap.exists()) {
@@ -31,6 +31,9 @@ const Login = () => {
           timestamp: serverTimestamp(),
           username: user.email,
         })
+        user.username = user.email
+      } else {
+        user.username = user.email
       }
       setUser(user)
       router.push('/todos')
@@ -40,9 +43,9 @@ const Login = () => {
   }
 
   return (
-    <div className="mx-auto   p-4 w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-      <div className="space-y-6">
-        <h5 className="text-xl font-medium text-gray-900 dark:text-white">Sign in</h5>
+    <div className='mx-auto   p-4 w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700'>
+      <div className='space-y-6'>
+        <h5 className='text-xl font-medium text-gray-900 dark:text-white'>Sign in</h5>
         {/* <div>
                   <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>
                   <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required />
@@ -63,10 +66,10 @@ const Login = () => {
         <button
           // type="submit"
           onClick={onGoogleClick}
-          className="w-full text-white bg-violet-700 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+          className='w-full text-white bg-violet-700 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center '
         >
-          <i className="pi pi-google px-2"></i>
-          <span className="px-3"> Login with Google</span>
+          <i className='pi pi-google px-2'></i>
+          <span className='px-3'> Login with Google</span>
         </button>
         {/* <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                   Not registered? <a href="#" className="text-blue-700 hover:underline dark:text-blue-500">Create account</a>
