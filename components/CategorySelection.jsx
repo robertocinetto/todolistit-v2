@@ -119,17 +119,46 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
     })
   }
 
+  const selectedCategoryTemplate = (category, props) => {
+    if (category) {
+      return (
+        <div className='category-item category-item-value'>
+          <div>{category.categoryName}</div>
+        </div>
+      )
+    }
+    return <span>{props.placeholder}</span>
+  }
+
+  const categoryOptionTemplate = category => {
+    return (
+      <div className='flex justify-between items-center'>
+        <div>{category.categoryName}</div>
+        <Button
+          icon='pi pi-times'
+          className='p-button-rounded p-button-text p-button-plain p-button-xs md:absolute right-1'
+          aria-label='Cancel'
+          onClick={() => confirmDeleteCategory(category.id)}
+        />
+      </div>
+    )
+  }
+
   return (
     <div className='flex flex-col justify-between '>
       {/* <ConfirmDialog /> */}
-      <Dropdown
-        value={selectedCategory}
-        options={categories}
-        onChange={e => handleCategoryChange(e.value)}
-        optionLabel='categoryName'
-        placeholder='Select a Category'
-        className='w-full mb-2 md:hidden'
-      />
+      <div className='flex items-center'>
+        <Dropdown
+          value={selectedCategory}
+          options={categories}
+          onChange={e => handleCategoryChange(e.value)}
+          optionLabel='categoryName'
+          placeholder='Select a Category'
+          className='w-full mb-2 md:hidden'
+          valueTemplate={selectedCategoryTemplate}
+          itemTemplate={categoryOptionTemplate}
+        />
+      </div>
       <div>
         {categories.map(category => {
           return (
@@ -165,7 +194,6 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
           )
         })}
       </div>
-
       <Button
         onClick={showNewCategoryDialog}
         label='Add new category'
