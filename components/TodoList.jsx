@@ -2,8 +2,10 @@ import { useContext, useEffect, useState } from 'react'
 
 import { UserContext } from '../contexts/UserContext'
 
-import { onSnapshot, query, collection, where, orderBy } from 'firebase/firestore'
+import { onSnapshot, query, collection, where, orderBy, deleteDoc, doc } from 'firebase/firestore'
 import { db } from '../firebase'
+
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
 
 import Todo from './Todo'
 
@@ -52,13 +54,34 @@ const TodoList = ({ selectedCategory }) => {
     }
   }, [selectedCategory])
 
+  const deleteTodo = async id => {
+    try {
+      deleteDoc(doc(db, 'todos', id))
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const confirmDeleteTodo = id => {
+    confirmDialog({
+      message: 'Are you sure you want to proceed?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      position: 'bottom-right',
+      accept: () => deleteTodo(id),
+      // reject
+    })
+  }
+
   return (
     <>
+      <ConfirmDialog />
       {todos.map((todo, index) => {
         return (
           <Todo
             key={index}
             {...todo}
+            confirmDeleteTodo={id => confirmDeleteTodo(id)}
           />
         )
       })}

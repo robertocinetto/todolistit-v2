@@ -61,8 +61,10 @@
 }
 
 /* DIALOG */
-.dark .p-dialog .p-dialog-content {
-  @apply bg-zinc-800 ;
+.dark .p-dialog .p-dialog-content,
+.dark .p-dialog-draggable .p-dialog-header,
+.dark .p-dialog .p-dialog-footer {
+  @apply bg-zinc-800 text-white
 }
 
 /* INPUT TEXT */
@@ -82,7 +84,8 @@
 }
 .p-button:enabled:hover,
 .p-togglebutton.p-button.p-highlight:hover,
-.p-togglebutton.p-button:not(.p-disabled):not(.p-highlight):hover {
+.p-togglebutton.p-button:not(.p-disabled):not(.p-highlight):hover,
+.p-button.p-button-text.p-button-plain:enabled:hover {
   @apply bg-violet-600 border-violet-600 text-violet-100
 }
 .p-togglebutton.p-button .p-button-icon-left, 

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 
-import { doc, updateDoc } from 'firebase/firestore'
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 
-import { Checkbox } from 'primereact/checkbox'
 import { ToggleButton } from 'primereact/togglebutton'
+import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
 
-const Todo = ({ id, todo, done }) => {
+const Todo = ({ id, todo, done, confirmDeleteTodo }) => {
   // const [doneState, setDoneState] = useState(done)
 
   useEffect(() => {
@@ -35,7 +35,13 @@ const Todo = ({ id, todo, done }) => {
         offLabel=''
         className='p-button-xs'
       />
-      <div className={`ml-4 ${done ? 'line-through text-zinc-400' : ''}`}>{todo}</div>
+      <div className={`ml-4 ${done ? 'line-through text-zinc-400' : ''} flex-1`}>{todo}</div>
+      <Button
+        icon='pi pi-times'
+        className='p-button-rounded p-button-text p-button-plain p-button-sm justify-self-end'
+        aria-label='Cancel'
+        onClick={() => confirmDeleteTodo(id)}
+      />
     </div>
   )
 }
