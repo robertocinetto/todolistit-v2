@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 
+import { useToastContext } from '../hooks/useToastContext'
+
 import { UserContext } from '../contexts/UserContext'
 
 import { onSnapshot, query, collection, where, orderBy, deleteDoc, doc } from 'firebase/firestore'
@@ -12,6 +14,7 @@ import Todo from './Todo'
 const TodoList = ({ selectedCategory }) => {
   const { user, setUser } = useContext(UserContext)
   const [todos, setTodos] = useState([])
+  const { showSuccess } = useToastContext()
 
   useEffect(() => {
     console.log('%cTodo list rendered', 'color:orange')
@@ -56,7 +59,7 @@ const TodoList = ({ selectedCategory }) => {
 
   const deleteTodo = async id => {
     try {
-      deleteDoc(doc(db, 'todos', id))
+      await deleteDoc(doc(db, 'todos', id)).then(showSuccess(undefined, undefined, 'Todo deleted successfully'))
     } catch (e) {
       console.log(e)
     }

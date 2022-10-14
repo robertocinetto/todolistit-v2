@@ -23,7 +23,7 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
   const [dropdownSelectedCategory, setDropdownSelectedCategory] = useState(null)
 
   // const [selectedCategory, setSelectedCategory] = useState(categories)
-  const showSuccess = useToastContext()
+  const { showSuccess } = useToastContext()
   const { user, setUser } = useContext(UserContext)
 
   useEffect(() => {
@@ -98,7 +98,7 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
               <label
                 className={`cursor-pointer hidden md:block w-full p-2 mb-2 border dark:border-zinc-600 rounded transition-colors ${
                   selectedCategory.id === category.id
-                    ? 'bg-violet-500 text-white dark:bg-zinc-700 border-l-8 border-violet-700'
+                    ? 'bg-violet-500 text-white  border-l-8 border-violet-700 dark:border-violet-700'
                     : ''
                 }`}
                 htmlFor={category.id}

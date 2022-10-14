@@ -69,7 +69,7 @@
 
 /* INPUT TEXT */
 .dark .p-inputtext,
-.p-inputtext:enabled:hover {
+.dark .p-inputtext:enabled:hover {
   @apply bg-zinc-900 border-zinc-600;
 }
 
