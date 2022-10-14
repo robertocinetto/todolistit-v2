@@ -34,7 +34,8 @@
 .p-button.p-button-xs {
   font-size: 0.5rem;
   padding: 0.55625rem;
-  width: 2.3rem;
+  width: 2rem;
+  height: 2rem !important;
 }
 
 /* TOAST */
@@ -70,7 +71,7 @@
 /* INPUT TEXT */
 .dark .p-inputtext,
 .dark .p-inputtext:enabled:hover {
-  @apply bg-zinc-900 border-zinc-600;
+  @apply bg-zinc-900 border-zinc-600 text-zinc-300;
 }
 
 /* BUTTONS */
