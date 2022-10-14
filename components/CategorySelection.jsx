@@ -96,8 +96,10 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
               className='field-radiobutton flex items-center '
             >
               <label
-                className={`hidden md:block w-full p-2 mb-2 border border-zinc-600 rounded transition-colors ${
-                  selectedCategory.id === category.id ? 'bg-zinc-700 border-l-8 border-l-violet-700' : ''
+                className={`cursor-pointer hidden md:block w-full p-2 mb-2 border dark:border-zinc-600 rounded transition-colors ${
+                  selectedCategory.id === category.id
+                    ? 'bg-violet-500 text-white dark:bg-zinc-700 border-l-8 border-violet-700'
+                    : ''
                 }`}
                 htmlFor={category.id}
               >

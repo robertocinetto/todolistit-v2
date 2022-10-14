@@ -25,7 +25,7 @@ const Todo = ({ id, todo, done }) => {
   }
 
   return (
-    <div className='p-3 mb-2 last:mb-0 border rounded border-zinc-100 dark:border-zinc-600 flex items-center'>
+    <div className='p-3 mb-2 last:mb-0 border rounded border-zinc-200 dark:border-zinc-600 bg-zinc-100 flex items-center'>
       <ToggleButton
         checked={done}
         onChange={e => onToggleClick(e.value)}

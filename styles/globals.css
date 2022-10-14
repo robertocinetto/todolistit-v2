@@ -73,7 +73,7 @@
 
 /* BUTTONS */
 
-.p-togglebutton.p-button {
+.dark .p-togglebutton.p-button {
   @apply bg-zinc-700 border-zinc-500
 }
 .p-button,
