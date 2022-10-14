@@ -49,6 +49,10 @@ const Header = () => {
     router.reload()
   }
 
+  const resetDarkMode = () => {
+    setTheme('system')
+  }
+
   const items = [
     {
       label: 'Options',
