@@ -5,11 +5,8 @@ import { db } from '../firebase'
 
 import { ToggleButton } from 'primereact/togglebutton'
 import { Button } from 'primereact/button'
-import { InputText } from 'primereact/inputtext'
 
 const Todo = ({ id, todo, done, confirmDeleteTodo }) => {
-  // const [doneState, setDoneState] = useState(done)
-
   useEffect(() => {
     console.log('%cTodo rendered', 'color:orange')
   }, [])
@@ -25,7 +22,7 @@ const Todo = ({ id, todo, done, confirmDeleteTodo }) => {
   }
 
   return (
-    <div className='p-3 mb-2 last:mb-0 border rounded border-zinc-200 dark:border-zinc-600 bg-zinc-100 dark:bg-zinc-800 flex items-center'>
+    <div className='px-3 mb-2 last:mb-0 border rounded border-zinc-200 dark:border-zinc-600 bg-zinc-100 dark:bg-zinc-800 flex items-center'>
       <ToggleButton
         checked={done}
         onChange={e => onToggleClick(e.value)}

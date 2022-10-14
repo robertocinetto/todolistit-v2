@@ -25,14 +25,14 @@ const Todos = () => {
 
   return (
     <Layout>
-      <div className='flex flex-col md:flex-row gap-3 mb-3 '>
+      <div className='flex flex-col md:flex-row gap-3 mb-3 w-full'>
         <div className='md:w-1/4 p-5 rounded-md bg-zinc-50 dark:bg-zinc-800'>
           <CategorySelection
             selectedCategory={selectedCategory}
             handleCategoryChange={handleCategoryChange}
           />
         </div>
-        <div className='md:w-3/4 md:p-5 rounded-md bg-zinc-50 dark:bg-zinc-800'>
+        <div className='md:w-3/4 md:p-5 rounded-md bg-zinc-50 dark:bg-zinc-800 !bg-zinc-900 md:!bg-zinc-800'>
           <TodoList selectedCategory={selectedCategory} />
         </div>
       </div>

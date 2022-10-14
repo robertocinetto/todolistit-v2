@@ -15,24 +15,22 @@ const Home = () => {
       <Head>
         <title>To Do List It!</title>
         <meta
-          name="description"
-          content="A NextJs/Firebase todo list app"
+          name='description'
+          content='A NextJs/Firebase todo list app'
         />
         <link
-          rel="icon"
-          href="/favicon.ico"
+          rel='icon'
+          href='/favicon.ico'
         />
       </Head>
       <Layout>
-        <div className="grid place-items-center min-h-screen text-center">
-          <div className="w-full">
-            <Image
-              src={logo}
-              alt="To Do List It logo"
-              className="mx-auto mb-6 w-48 translate-x-4"
-            />
-            <Login />
-          </div>
+        <div className='w-full text-center flex flex-col justify-center'>
+          <Image
+            src={logo}
+            alt='To Do List It logo'
+            className='mx-auto mb-6 w-48 translate-x-4'
+          />
+          <Login />
         </div>
       </Layout>
     </div>
