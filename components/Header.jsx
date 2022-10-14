@@ -1,6 +1,4 @@
-import { getAuth, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import { db } from '../firebase'
-import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
+import { getAuth, signOut } from 'firebase/auth'
 
 import { useEffect, useState, useContext, useRef } from 'react'
 import { useTheme } from 'next-themes'
@@ -83,7 +81,7 @@ const Header = () => {
   ]
 
   return (
-    <div className='max-w-screen-2xl xl:mx-auto px-5'>
+    <div className='max-w-screen-2xl xl:mx-auto px-5 bg-zinc-900/90'>
       <div className={`flex items-center ${router.pathname === '/todos' ? 'justify-between' : 'justify-end p-5'}`}>
         {router.pathname === '/todos' && (
           <div className='cursor-pointer h-24 w-44 lg:w-52 relative flex items-center'>
