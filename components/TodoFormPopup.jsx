@@ -41,7 +41,7 @@ const TodoFormPopup = () => {
       try {
         await addDoc(collection(db, 'todos'), {
           done: false,
-          todo,
+          todo: data.todo,
           categoryId: category.id,
           username: user.username,
           createdAt: serverTimestamp(),
