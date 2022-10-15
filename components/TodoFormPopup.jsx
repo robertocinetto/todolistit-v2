@@ -10,6 +10,8 @@ import { Dialog } from 'primereact/dialog'
 import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import { Button } from 'primereact/button'
+import { useFormik } from 'formik'
+import { classNames } from 'primereact/utils'
 
 import { useRecoilState } from 'recoil'
 import { categoriesState } from '../atom/categoriesAtom'
@@ -22,31 +24,67 @@ const TodoFormPopup = () => {
   const [categories, setCategories] = useRecoilState(categoriesState)
   const { showSuccess, showWarning } = useToastContext()
 
+  const formik = useFormik({
+    initialValues: {
+      todo: '',
+    },
+    validate: data => {
+      let errors = {}
+
+      if (!data.todo) {
+        errors.todo = 'Todo text is required.'
+      }
+
+      return errors
+    },
+    onSubmit: async data => {
+      try {
+        await addDoc(collection(db, 'todos'), {
+          done: false,
+          todo,
+          categoryId: category.id,
+          username: user.username,
+          createdAt: serverTimestamp(),
+        })
+        showSuccess(undefined, undefined, 'Todo successfully added!')
+      } catch (e) {
+        console.log(e)
+      }
+
+      formik.resetForm()
+    },
+  })
+
+  const isFormFieldValid = name => !!(formik.touched[name] && formik.errors[name])
+  const getFormErrorMessage = name => {
+    return isFormFieldValid(name) && <small className='p-error'>{formik.errors[name]}</small>
+  }
+
   useEffect(() => {
     console.log('%cTodoFormPopup rendered', 'color:orange')
   }, [category])
 
-  const addTodo = async () => {
-    try {
-      await addDoc(collection(db, 'todos'), {
-        done: false,
-        todo,
-        categoryId: category.id,
-        username: user.username,
-        createdAt: serverTimestamp(),
-      })
-      showSuccess(undefined, undefined, 'Todo successfully added!')
-    } catch (e) {
-      console.log(e)
-    }
-  }
+  // const addTodo = async e => {
+  //   e.preventDefault()
+  //   try {
+  //     await addDoc(collection(db, 'todos'), {
+  //       done: false,
+  //       todo,
+  //       categoryId: category.id,
+  //       username: user.username,
+  //       createdAt: serverTimestamp(),
+  //     })
+  //     showSuccess(undefined, undefined, 'Todo successfully added!')
+  //   } catch (e) {
+  //     console.log(e)
+  //   }
+  // }
 
   const onCategoryChange = e => {
     setCategory(e.value)
   }
 
   const onClick = () => {
-    console.log(categories)
     if (categories.length === 0) {
       showWarning(undefined, undefined, 'Create a category first')
     } else {
@@ -56,6 +94,7 @@ const TodoFormPopup = () => {
 
   const onHide = () => {
     setDisplayPopup(false)
+    formik.resetForm()
   }
 
   const selectedCategoryTemplate = (option, props) => {
@@ -88,28 +127,34 @@ const TodoFormPopup = () => {
         dismissableMask
         showHeader={false}
       >
-        <InputText
-          id='todo'
-          value={todo}
-          onChange={e => setTodo(e.target.value)}
-          className='p-inputtext-sm w-full'
-          placeholder='Todo'
-        />
-        <Dropdown
-          value={category}
-          options={categories}
-          onChange={onCategoryChange}
-          optionLabel='name'
-          placeholder='Select a category'
-          className='w-full mt-3 p-inputtext-sm'
-          valueTemplate={selectedCategoryTemplate}
-          itemTemplate={selectedCategoryOptionTemplate}
-        />
-        <Button
-          label='Add todo'
-          className='p-button-sm w-full mt-3'
-          onClick={addTodo}
-        />
+        <form>
+          <InputText
+            id='todo'
+            value={formik.values.todo}
+            // onChange={e => setTodo(e.target.value)}
+            onChange={formik.handleChange}
+            autoFocus
+            className={classNames({ 'p-invalid': isFormFieldValid('todo') }, 'p-inputtext-sm w-full')}
+            placeholder='Add your item'
+          />
+          {getFormErrorMessage('todo')}
+          <Dropdown
+            value={category}
+            options={categories}
+            onChange={onCategoryChange}
+            optionLabel='name'
+            placeholder='Select a category'
+            className='w-full mt-3 p-inputtext-sm'
+            valueTemplate={selectedCategoryTemplate}
+            itemTemplate={selectedCategoryOptionTemplate}
+          />
+          <Button
+            label='Add todo'
+            className='p-button-sm w-full mt-3'
+            onClick={formik.handleSubmit}
+            type='submit'
+          />
+        </form>
       </Dialog>
 
       <div className='fixed bottom-0 right-0 mr-3 mb-3'>
