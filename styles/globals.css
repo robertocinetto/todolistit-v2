@@ -40,7 +40,7 @@
 
 /* TOAST */
 .p-toast {
-  @apply w-[22rem]
+  @apply w-[20rem]
 }
 
 /* DROPDOWN */

@@ -20,6 +20,7 @@ const Todos = () => {
   }, [])
 
   const handleCategoryChange = e => {
+    console.log(e)
     setSelectedCategory(e)
   }
 
@@ -36,7 +37,10 @@ const Todos = () => {
           <TodoList selectedCategory={selectedCategory} />
         </div>
       </div>
-      <TodoFormPopup />
+      <TodoFormPopup
+        selectedCategory={selectedCategory}
+        handleCategoryChange={handleCategoryChange}
+      />
     </Layout>
   )
 }

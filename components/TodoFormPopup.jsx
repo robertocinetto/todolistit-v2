@@ -19,10 +19,10 @@ import { categoriesState } from '../atom/categoriesAtom'
 const TodoFormPopup = () => {
   const { user, setUser } = useContext(UserContext)
   const [displayPopup, setDisplayPopup] = useState(false)
-  const [todo, setTodo] = useState('')
   const [category, setCategory] = useState()
   const [categories, setCategories] = useRecoilState(categoriesState)
   const { showSuccess, showWarning } = useToastContext()
+  const [loading, setLoading] = useState(false)
 
   const formik = useFormik({
     initialValues: {
@@ -38,6 +38,7 @@ const TodoFormPopup = () => {
       return errors
     },
     onSubmit: async data => {
+      setLoading(true)
       try {
         await addDoc(collection(db, 'todos'), {
           done: false,
@@ -46,6 +47,7 @@ const TodoFormPopup = () => {
           username: user.username,
           createdAt: serverTimestamp(),
         })
+        setLoading(false)
         showSuccess(undefined, undefined, 'Todo successfully added!')
       } catch (e) {
         console.log(e)
@@ -63,22 +65,6 @@ const TodoFormPopup = () => {
   useEffect(() => {
     console.log('%cTodoFormPopup rendered', 'color:orange')
   }, [category])
-
-  // const addTodo = async e => {
-  //   e.preventDefault()
-  //   try {
-  //     await addDoc(collection(db, 'todos'), {
-  //       done: false,
-  //       todo,
-  //       categoryId: category.id,
-  //       username: user.username,
-  //       createdAt: serverTimestamp(),
-  //     })
-  //     showSuccess(undefined, undefined, 'Todo successfully added!')
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // }
 
   const onCategoryChange = e => {
     setCategory(e.value)
@@ -131,7 +117,6 @@ const TodoFormPopup = () => {
           <InputText
             id='todo'
             value={formik.values.todo}
-            // onChange={e => setTodo(e.target.value)}
             onChange={formik.handleChange}
             autoFocus
             className={classNames({ 'p-invalid': isFormFieldValid('todo') }, 'p-inputtext-sm w-full')}
@@ -153,6 +138,7 @@ const TodoFormPopup = () => {
             className='p-button-sm w-full mt-3'
             onClick={formik.handleSubmit}
             type='submit'
+            loading={loading}
           />
         </form>
       </Dialog>

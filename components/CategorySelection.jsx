@@ -22,7 +22,7 @@ import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
 import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
+import { confirmDialog } from 'primereact/confirmdialog'
 
 import { useRecoilState } from 'recoil'
 import { categoriesState } from '../atom/categoriesAtom'
@@ -31,8 +31,9 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
   const [displayPopup, setDisplayPopup] = useState(false)
   const [newCategory, setNewCategory] = useState('')
   const [categories, setCategories] = useRecoilState(categoriesState)
-  const { showSuccess } = useToastContext()
+  const { showSuccess, showWarning } = useToastContext()
   const { user, setUser } = useContext(UserContext)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     console.log('%cTodo category selection rendered', 'color:orange')
@@ -66,13 +67,21 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
   }, [])
 
   const addCategory = async () => {
+    if (!newCategory) {
+      showWarning(undefined, undefined, 'Category name is empty')
+      return
+    }
+    setLoading(true)
     try {
       await addDoc(collection(db, 'categories'), {
         categoryName: newCategory,
         username: user.username,
         createdAt: serverTimestamp(),
       })
+      setLoading(false)
       showSuccess(undefined, undefined, 'Category successfully created!')
+      onHide()
+      setNewCategory('')
     } catch (e) {
       console.log(e)
     }
@@ -90,6 +99,7 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
     const batch = writeBatch(db)
     const q = query(collection(db, 'todos'), where('categoryId', '==', categoryId))
     const todosToBeDeleted = await getDocs(q)
+    setDisplayPopup(true)
     try {
       todosToBeDeleted.forEach(todo => {
         console.log(todo.data())
@@ -103,6 +113,7 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
             showSuccess(undefined, undefined, 'Category deleted successfully')
           )
         )
+      setDisplayPopup(false)
     } catch (e) {
       console.log(e)
     }
@@ -146,7 +157,6 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
 
   return (
     <div className='flex flex-col justify-between '>
-      {/* <ConfirmDialog /> */}
       <div className='flex items-center'>
         <Dropdown
           value={selectedCategory}
@@ -214,12 +224,14 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
           value={newCategory}
           onChange={e => setNewCategory(e.target.value)}
           className='p-inputtext-sm w-full'
+          autoFocus
           placeholder='New category'
         />
         <Button
           label='Add category'
           className='p-button-sm w-full mt-3'
           onClick={addCategory}
+          loading={loading}
         />
       </Dialog>
     </div>
