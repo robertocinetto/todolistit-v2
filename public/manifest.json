@@ -1,0 +1,22 @@
+{
+  "name": "To Do List It!",
+  "short_name": "To Do List It",
+  "icons": [
+    {
+      "src": "/todolistit-logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+
+    {
+      "src": "/todolistit-logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#6d28d9",
+  "background_color": "#18181b",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}

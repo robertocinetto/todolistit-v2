@@ -5,6 +5,18 @@ const Document = () => {
     <Html>
       <Head>
         <link
+          rel='manifest'
+          href='/manifest.json'
+        />
+        <link
+          rel='apple-touch-icon'
+          href='/todolistit-logo-192.png'
+        />
+        <meta
+          name='theme-color'
+          content='#6d28d9'
+        />
+        <link
           rel='preconnect'
           href='https://fonts.googleapis.com'
         />
@@ -18,8 +30,9 @@ const Document = () => {
         />
         <meta
           name='viewport'
-          content='width=device-width, initial-scale=1, maximum-scale=1'
+          content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no'
         />
+        <title>To Do List It!</title>
       </Head>
       <body className='bg-white dark:bg-slate-800 dark:text-slate-100 dark:dark-theme'>
         <Main />
