@@ -64,7 +64,7 @@ const Todo = ({ id, todo, done, confirmDeleteTodo }) => {
 
   return (
     <div
-      className='px-3 mb-2 last:mb-0 
+      className='p-2 mb-2 last:mb-0 
                     border rounded border-zinc-200 dark:border-zinc-600 
                     bg-zinc-100 dark:bg-zinc-800 flex items-center'
     >
@@ -75,16 +75,19 @@ const Todo = ({ id, todo, done, confirmDeleteTodo }) => {
         offIcon='pi pi-check'
         aria-label='Confirmation'
         offLabel=''
-        className='p-button-xs'
+        className={`p-button-xs ${inlineEdit ? 'hidden' : ''}`}
       />
       <div
-        className={`ml-4 ${done && !inlineEdit ? 'line-through text-zinc-400' : ''} flex-1`}
+        className={`flex-1 
+                  ${done && !inlineEdit ? 'line-through text-zinc-400' : ''} 
+                  
+                  `}
         onClick={inlineEdit ? null : onTodoClick}
       >
         {inlineEdit ? (
           <div className='flex items-center'>
             <InputText
-              className='p-inputtext-xs block'
+              className='p-inputtext-xs block flex-1'
               type='text'
               value={todoContent}
               onChange={e => setTodoContent(e.target.value)}
@@ -105,12 +108,14 @@ const Todo = ({ id, todo, done, confirmDeleteTodo }) => {
             />
           </div>
         ) : (
-          todoContent
+          <span className='ml-4 '>{todoContent}</span>
         )}
       </div>
       <Button
         icon='pi pi-times'
-        className='p-button-rounded p-button-text p-button-plain p-button-sm justify-self-end'
+        className={`p-button-rounded p-button-text p-button-plain p-button-xs justify-self-end
+                  ${inlineEdit ? 'hidden' : ''}
+                  `}
         aria-label='Cancel'
         onClick={() => confirmDeleteTodo(id)}
       />
