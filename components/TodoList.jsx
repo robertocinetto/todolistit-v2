@@ -9,7 +9,10 @@ import { db } from '../firebase'
 
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
 
+import Image from 'next/future/image'
 import Todo from './Todo'
+
+import NoTodosImage from '../public/no-todo-illustration.svg'
 
 const TodoList = ({ selectedCategory }) => {
   const { user, setUser } = useContext(UserContext)
@@ -79,15 +82,28 @@ const TodoList = ({ selectedCategory }) => {
   return (
     <>
       <ConfirmDialog />
-      {todos.map((todo, index) => {
-        return (
-          <Todo
-            key={index}
-            {...todo}
-            confirmDeleteTodo={id => confirmDeleteTodo(id)}
+      {console.log(todos)}
+      {todos.length === 0 ? (
+        <>
+          <h2 className='text-center mt-10'>Add your new todo!</h2>
+          <Image
+            src={NoTodosImage}
+            layout='fill'
+            className='object-contain w-3/4 md:w-1/3 mx-auto my-10'
+            alt=''
           />
-        )
-      })}
+        </>
+      ) : (
+        todos.map((todo, index) => {
+          return (
+            <Todo
+              key={index}
+              {...todo}
+              confirmDeleteTodo={id => confirmDeleteTodo(id)}
+            />
+          )
+        })
+      )}
     </>
   )
 }
