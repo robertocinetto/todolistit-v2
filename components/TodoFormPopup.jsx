@@ -16,10 +16,9 @@ import { classNames } from 'primereact/utils'
 import { useRecoilState } from 'recoil'
 import { categoriesState } from '../atom/categoriesAtom'
 
-const TodoFormPopup = () => {
+const TodoFormPopup = ({ selectedCategory, handleCategoryChange }) => {
   const { user, setUser } = useContext(UserContext)
   const [displayPopup, setDisplayPopup] = useState(false)
-  const [category, setCategory] = useState()
   const [categories, setCategories] = useRecoilState(categoriesState)
   const { showSuccess, showWarning } = useToastContext()
   const [loading, setLoading] = useState(false)
@@ -38,12 +37,13 @@ const TodoFormPopup = () => {
       return errors
     },
     onSubmit: async data => {
+      console.log(data)
       setLoading(true)
       try {
         await addDoc(collection(db, 'todos'), {
           done: false,
           todo: data.todo,
-          categoryId: category.id,
+          categoryId: selectedCategory.id,
           username: user.username,
           createdAt: serverTimestamp(),
         })
@@ -64,10 +64,10 @@ const TodoFormPopup = () => {
 
   useEffect(() => {
     console.log('%cTodoFormPopup rendered', 'color:orange')
-  }, [category])
+  }, [selectedCategory])
 
   const onCategoryChange = e => {
-    setCategory(e.value)
+    handleCategoryChange(e.value)
   }
 
   const onClick = () => {
@@ -124,7 +124,7 @@ const TodoFormPopup = () => {
           />
           {getFormErrorMessage('todo')}
           <Dropdown
-            value={category}
+            value={selectedCategory}
             options={categories}
             onChange={onCategoryChange}
             optionLabel='name'
