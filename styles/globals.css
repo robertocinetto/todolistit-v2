@@ -69,6 +69,10 @@
 }
 
 /* INPUT TEXT */
+.p-inputtext.p-inputtext-xs {
+  @apply py-1
+}
+
 .dark .p-inputtext,
 .dark .p-inputtext:enabled:hover {
   @apply bg-zinc-900 border-zinc-600 text-zinc-300;
