@@ -105,3 +105,15 @@
 .dark .p-chip {
   @apply  bg-violet-900 text-violet-50;
 }
+
+/* MENU */
+.dark .p-menu {
+  @apply border border-zinc-300
+}
+.dark .p-menu,
+.dark .p-submenu-header {
+  @apply bg-zinc-900 text-zinc-100;
+}
+.dark .p-menu .p-menuitem-link .p-menuitem-text {
+  @apply text-zinc-300;
+}
