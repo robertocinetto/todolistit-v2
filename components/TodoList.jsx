@@ -82,7 +82,6 @@ const TodoList = ({ selectedCategory }) => {
   return (
     <>
       <ConfirmDialog />
-      {console.log(todos)}
       {todos.length === 0 ? (
         <>
           <h2 className='text-center mt-10'>Add your new todo!</h2>

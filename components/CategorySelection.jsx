@@ -99,7 +99,6 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
     const batch = writeBatch(db)
     const q = query(collection(db, 'todos'), where('categoryId', '==', categoryId))
     const todosToBeDeleted = await getDocs(q)
-    setDisplayPopup(true)
     try {
       todosToBeDeleted.forEach(todo => {
         console.log(todo.data())
@@ -113,7 +112,6 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
             showSuccess(undefined, undefined, 'Category deleted successfully')
           )
         )
-      setDisplayPopup(false)
     } catch (e) {
       console.log(e)
     }
@@ -126,7 +124,6 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
       icon: 'pi pi-exclamation-triangle',
       position: 'bottom-right',
       accept: () => deleteCategory(categoryId),
-      // reject
     })
   }
 
@@ -219,20 +216,22 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
         dismissableMask
         showHeader={false}
       >
-        <InputText
-          id='newCategory'
-          value={newCategory}
-          onChange={e => setNewCategory(e.target.value)}
-          className='p-inputtext-sm w-full'
-          autoFocus
-          placeholder='New category'
-        />
-        <Button
-          label='Add category'
-          className='p-button-sm w-full mt-3'
-          onClick={addCategory}
-          loading={loading}
-        />
+        <form onSubmit={addCategory}>
+          <InputText
+            id='newCategory'
+            value={newCategory}
+            onChange={e => setNewCategory(e.target.value)}
+            className='p-inputtext-sm w-full'
+            autoFocus
+            placeholder='New category'
+          />
+          <Button
+            label='Add category'
+            className='p-button-sm w-full mt-3'
+            onClick={addCategory}
+            loading={loading}
+          />
+        </form>
       </Dialog>
     </div>
   )
