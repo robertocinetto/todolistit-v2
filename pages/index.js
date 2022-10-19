@@ -18,10 +18,6 @@ const Home = () => {
           name='description'
           content='A NextJs/Firebase todo list app'
         />
-        <link
-          rel='icon'
-          href='/favicon.ico'
-        />
       </Head>
       <Layout>
         <div className='w-full text-center flex flex-col justify-center'>

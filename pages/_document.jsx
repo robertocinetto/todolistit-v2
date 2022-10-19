@@ -28,11 +28,14 @@ const Document = () => {
           href='https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600&display=swap'
           rel='stylesheet'
         />
+        <link
+          rel='icon'
+          href='/favicon.ico'
+        />
         <meta
           name='viewport'
           content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no'
         />
-        <title>To Do List It!</title>
       </Head>
       <body className='bg-white dark:bg-slate-800 dark:text-slate-100 dark:dark-theme'>
         <Main />
