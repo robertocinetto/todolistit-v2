@@ -87,7 +87,7 @@ const Todo = ({ id, todo, done, confirmDeleteTodo }) => {
         {inlineEdit ? (
           <div className='flex items-center'>
             <InputText
-              className='p-inputtext-xs block flex-1'
+              className='p-inputtext-xs block flex-1 w-[100px]'
               type='text'
               value={todoContent}
               onChange={e => setTodoContent(e.target.value)}
