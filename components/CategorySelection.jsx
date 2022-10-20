@@ -230,6 +230,7 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
             className='p-button-sm w-full mt-3'
             onClick={addCategory}
             loading={loading}
+            disabled={newCategory === '' ? true : false}
           />
         </form>
       </Dialog>
