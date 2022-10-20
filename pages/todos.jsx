@@ -22,7 +22,6 @@ const Todos = () => {
   }, [])
 
   const handleCategoryChange = e => {
-    console.log(e)
     setSelectedCategory(e)
   }
 

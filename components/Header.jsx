@@ -82,8 +82,8 @@ const Header = () => {
 
   return (
     <div className='max-w-screen-2xl xl:mx-auto px-5 bg-white/90 dark:bg-zinc-900/90'>
-      <div className={`flex items-center ${router.pathname === '/todos' ? 'justify-between' : 'justify-end p-5'}`}>
-        {router.pathname === '/todos' && (
+      <div className={`flex items-center ${router.pathname !== '' ? 'justify-between' : 'justify-end p-5'}`}>
+        {router.pathname !== '' && (
           <div className='cursor-pointer h-24 w-44 lg:w-52 relative flex items-center'>
             <Link href='/todos'>
               <a>

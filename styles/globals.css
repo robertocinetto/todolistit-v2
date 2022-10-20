@@ -29,6 +29,12 @@
     @apply mb-4;
     font-weight: 400;
   }
+  a {
+    @apply text-violet-500 transition-colors underline
+  }
+  a:hover {
+    @apply text-violet-700 no-underline
+  }
 }
 
 .p-button.p-button-xs {
