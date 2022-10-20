@@ -67,8 +67,8 @@ const Todo = ({ id, todo, done, confirmDeleteTodo }) => {
   return (
     <div
       className={`p-2 mb-2 last:mb-0 
-                  border rounded border-zinc-200 dark:border-zinc-600 
-                  bg-zinc-100 dark:bg-zinc-800 flex items-center 
+                  border rounded border-zinc-100 dark:border-zinc-600 
+                  bg-zinc-50 dark:bg-zinc-800 flex items-center 
                   ${done ? 'opacity-60' : ''}`}
     >
       <ToggleButton
