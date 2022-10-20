@@ -88,28 +88,30 @@ const Todo = ({ id, todo, done, confirmDeleteTodo }) => {
         onClick={inlineEdit ? null : onTodoClick}
       >
         {inlineEdit ? (
-          <div className='flex items-center'>
-            <InputText
-              className='p-inputtext-xs block flex-1 w-[100px]'
-              type='text'
-              value={todoContent}
-              onChange={e => setTodoContent(e.target.value)}
-              autoFocus
-            />
-            <Button
-              icon='pi pi-check'
-              className='p-button-rounded p-button-text p-button-xs ml-2'
-              aria-label='Submit'
-              onClick={submitTodoEdits}
-              loading={loading}
-            />
-            <Button
-              icon='pi pi-times'
-              className='p-button-rounded p-button-danger p-button-text p-button-xs ml-2'
-              aria-label='Cancel'
-              onClick={handleCancelInlineEdit}
-            />
-          </div>
+          <form onSubmit={submitTodoEdits}>
+            <div className='flex items-center'>
+              <InputText
+                className='p-inputtext-xs block flex-1 w-[100px]'
+                type='text'
+                value={todoContent}
+                onChange={e => setTodoContent(e.target.value)}
+                autoFocus
+              />
+              <Button
+                icon='pi pi-check'
+                className='p-button-rounded p-button-text p-button-xs ml-2'
+                aria-label='Submit'
+                onClick={submitTodoEdits}
+                loading={loading}
+              />
+              <Button
+                icon='pi pi-times'
+                className='p-button-rounded p-button-danger p-button-text p-button-xs ml-2'
+                aria-label='Cancel'
+                onClick={handleCancelInlineEdit}
+              />
+            </div>
+          </form>
         ) : (
           <span className='ml-4 '>
             {todo} {`${process.env.NODE_ENV === 'development' ? '- ' + id : null}`}

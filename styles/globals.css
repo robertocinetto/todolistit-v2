@@ -76,7 +76,7 @@
 
 /* INPUT TEXT */
 .p-inputtext.p-inputtext-xs {
-  @apply py-1
+  @apply py-0.5
 }
 
 .dark .p-inputtext,
