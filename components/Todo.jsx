@@ -114,7 +114,7 @@ const Todo = ({ id, todo, done, confirmDeleteTodo }) => {
           </form>
         ) : (
           <span className='ml-4 '>
-            {todo} {`${process.env.NODE_ENV === 'development' ? '- ' + id : null}`}
+            {todo} {`${process.env.NODE_ENV === 'development' ? '- ' + id : ''}`}
           </span>
         )}
       </div>
