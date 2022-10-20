@@ -26,11 +26,13 @@ const Todo = ({ id, todo, done, confirmDeleteTodo }) => {
   }, [])
 
   const onToggleClick = async e => {
+    console.log(e)
     try {
       await updateDoc(doc(db, 'todos', id), {
         done: !done,
       })
-      showSuccess(undefined, undefined, 'Todo is completed!')
+      if (e) showSuccess(undefined, undefined, 'Todo is completed!')
+      else showSuccess(undefined, undefined, 'Todo is to be done yet!')
     } catch (e) {
       console.log(e)
     }
@@ -64,9 +66,10 @@ const Todo = ({ id, todo, done, confirmDeleteTodo }) => {
 
   return (
     <div
-      className='p-2 mb-2 last:mb-0 
-                    border rounded border-zinc-200 dark:border-zinc-600 
-                    bg-zinc-100 dark:bg-zinc-800 flex items-center'
+      className={`p-2 mb-2 last:mb-0 
+                  border rounded border-zinc-200 dark:border-zinc-600 
+                  bg-zinc-100 dark:bg-zinc-800 flex items-center 
+                  ${done ? 'opacity-60' : ''}`}
     >
       <ToggleButton
         checked={done}

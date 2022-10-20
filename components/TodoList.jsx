@@ -17,6 +17,7 @@ import NoTodosImage from '../public/no-todo-illustration.svg'
 const TodoList = ({ selectedCategory }) => {
   const { user, setUser } = useContext(UserContext)
   const [todos, setTodos] = useState([])
+  const [todosDone, setTodosDone] = useState([])
   const { showSuccess } = useToastContext()
 
   useEffect(() => {
@@ -40,10 +41,10 @@ const TodoList = ({ selectedCategory }) => {
           const todosCollection = collection.docs
 
           //build an array of ids from the collection
-          let ids = todosCollection.map(todo => todo.id)
+          const ids = todosCollection.map(todo => todo.id)
 
           //build an array of objects containing the db data
-          let todosData = todosCollection.map(todo => todo.data())
+          const todosData = todosCollection.map(todo => todo.data())
 
           //build an alternative array chaining ids and data
           _todos = todosData.map((todo, i) => {
@@ -52,7 +53,14 @@ const TodoList = ({ selectedCategory }) => {
               id: ids[i],
             }
           })
-          setTodos(_todos)
+
+          //filter todos by done and undone
+          const _todosUndone = _todos.filter(todo => todo.done === false)
+          const _todosDone = _todos.filter(todo => todo.done === true)
+          // _todos = _todos.map(todo => console.log(todo.done))
+
+          setTodos(_todosUndone)
+          setTodosDone(_todosDone)
         },
         error => {
           console.error(error)
@@ -105,6 +113,17 @@ const TodoList = ({ selectedCategory }) => {
           )
         })
       )}
+
+      {todosDone.length > 0 && <h3 className='mt-10'>Done</h3>}
+      {todosDone.map((todo, index) => {
+        return (
+          <Todo
+            key={index}
+            {...todo}
+            confirmDeleteTodo={id => confirmDeleteTodo(id)}
+          />
+        )
+      })}
     </>
   )
 }
