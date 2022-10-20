@@ -29,7 +29,8 @@ const TodoList = ({ selectedCategory }) => {
           collection(db, 'todos'),
           where('categoryId', '==', selectedCategory.id),
           where('username', '==', user.username),
-          orderBy('done')
+          orderBy('done'),
+          orderBy('createdAt', 'desc')
         ),
         collection => {
           //since the snapshot doesn't get the id of each doc, ids needs to be collected in another way
@@ -69,6 +70,7 @@ const TodoList = ({ selectedCategory }) => {
   }
 
   const confirmDeleteTodo = id => {
+    console.log(id)
     confirmDialog({
       message: 'Are you sure you want to proceed?',
       header: 'Confirmation',

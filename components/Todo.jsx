@@ -108,7 +108,9 @@ const Todo = ({ id, todo, done, confirmDeleteTodo }) => {
             />
           </div>
         ) : (
-          <span className='ml-4 '>{todoContent}</span>
+          <span className='ml-4 '>
+            {todo} {`${process.env.NODE_ENV === 'development' ? '- ' + id : null}`}
+          </span>
         )}
       </div>
       <Button
