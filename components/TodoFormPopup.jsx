@@ -143,10 +143,10 @@ const TodoFormPopup = ({ selectedCategory, handleCategoryChange }) => {
         </form>
       </Dialog>
 
-      <div className='fixed bottom-0 right-0 mr-3 mb-3'>
+      <div className='fixed bottom-0 right-0 mr-5 mb-5'>
         <Button
           icon='pi pi-plus'
-          className='p-button-rounded bg-violet-700 hover:bg-violet-500 border-violet-700 hover:border-violet-500'
+          className='create-todo p-button-rounded bg-violet-700 hover:bg-violet-500 border-violet-700 hover:border-violet-500'
           aria-label='Add todo'
           onClick={onClick}
         />

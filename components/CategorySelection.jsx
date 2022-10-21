@@ -154,24 +154,22 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
 
   return (
     <div className='flex flex-col justify-between '>
-      <div className='flex items-center'>
-        <Dropdown
-          value={selectedCategory}
-          options={categories}
-          onChange={e => handleCategoryChange(e.value)}
-          optionLabel='categoryName'
-          placeholder='Select a Category'
-          className='w-full mb-2 md:hidden'
-          valueTemplate={selectedCategoryTemplate}
-          itemTemplate={categoryOptionTemplate}
-        />
-      </div>
+      <Dropdown
+        value={selectedCategory}
+        options={categories}
+        onChange={e => handleCategoryChange(e.value)}
+        optionLabel='categoryName'
+        placeholder='Select a Category'
+        className='select-category w-full mb-2 md:hidden'
+        valueTemplate={selectedCategoryTemplate}
+        itemTemplate={categoryOptionTemplate}
+      />
       <div>
         {categories.map(category => {
           return (
             <div
               key={category.id}
-              className='field-radiobutton flex items-center relative'
+              className='select-category field-radiobutton flex items-center relative'
             >
               <label
                 className={` cursor-pointer hidden md:block w-full p-2 mb-2 border dark:border-zinc-600 rounded transition-colors ${
@@ -204,7 +202,7 @@ const CategorySelection = ({ selectedCategory, handleCategoryChange }) => {
       <Button
         onClick={showNewCategoryDialog}
         label='Add new category'
-        className='p-button-sm w-full'
+        className='p-button-sm w-full create-category'
       />
 
       <Dialog
