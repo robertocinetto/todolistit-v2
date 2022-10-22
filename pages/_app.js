@@ -1,3 +1,4 @@
+import 'intro.js/introjs.css'
 import '../styles/globals.css'
 import { RecoilRoot } from 'recoil'
 import { ThemeProvider } from 'next-themes'

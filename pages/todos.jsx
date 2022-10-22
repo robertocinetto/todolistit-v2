@@ -2,6 +2,7 @@ import Head from 'next/head'
 
 import { useRouter } from 'next/router'
 import React, { useContext, useEffect, useState } from 'react'
+
 import CategorySelection from '../components/CategorySelection'
 import Layout from '../components/Layout'
 import TodoList from '../components/TodoList'

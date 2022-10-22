@@ -11,6 +11,7 @@
   "dependencies": {
     "firebase": "^9.11.0",
     "formik": "^2.2.9",
+    "intro.js-react": "^0.7.0",
     "next": "12.3.1",
     "next-pwa": "^5.6.0",
     "next-themes": "^0.2.1",

@@ -123,3 +123,29 @@
 .dark .p-menu .p-menuitem-link .p-menuitem-text {
   @apply text-zinc-300;
 }
+
+
+/*  ONBOARDING TOUR  */
+.introjs-button {
+  text-shadow: none;
+  @apply bg-violet-700 text-violet-100 drop-shadow-none rounded border-violet-600
+}
+.introjs-button:hover,
+.introjs-button:focus {
+  @apply bg-violet-600 text-violet-100 border-violet-500
+}
+
+.dark .introjs-tooltip {
+  @apply bg-zinc-700
+}
+.dark .introjs-arrow.top,
+.dark .introjs-arrow.top-right { 
+  @apply border-b-zinc-700
+}
+.dark .introjs-arrow.bottom,
+.dark .introjs-arrow.bottom-right { 
+  @apply border-t-zinc-700
+}
+.dark .introjs-tooltipbuttons {
+  @apply border-t-zinc-700
+}

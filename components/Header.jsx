@@ -1,27 +1,29 @@
 import { getAuth, signOut } from 'firebase/auth'
 
+import Link from 'next/link'
+import Image from 'next/future/image'
+import dynamic from 'next/dynamic'
+
 import { useEffect, useState, useContext, useRef, Suspense } from 'react'
 import { useTheme } from 'next-themes'
 import { UserContext } from '../contexts/UserContext'
 import { useRouter } from 'next/router'
-import dynamic from 'next/dynamic'
 
 /* FRAMEWORKS COMPONENTS */
 import { DarkModeSwitch } from 'react-toggle-dark-mode'
 import { Menu } from 'primereact/menu'
 import { Button } from 'primereact/button'
 import { Chip } from 'primereact/chip'
-import Link from 'next/link'
-import Image from 'next/future/image'
 
-//dynamic tour component import
-const Tour = dynamic(() => import('./Tour'), { ssr: false })
+const Tour = dynamic(() => import('../components/Tour'), {
+  suspense: true,
+})
 
 const Header = () => {
   const [switchState, setSwitchState] = useState(false)
   const { resolvedTheme, theme, setTheme } = useTheme()
   const { user, setUser } = useContext(UserContext)
-  const [startTour, setStartTour] = useState(true)
+  const [startTour, setStartTour] = useState(false)
   const menu = useRef(null)
   const auth = getAuth()
   const router = useRouter()
@@ -40,6 +42,7 @@ const Header = () => {
       console.log(startTour)
       setStartTour(false)
     }
+
     // }, [resolvedTheme, user])
   }, [])
 
@@ -99,11 +102,14 @@ const Header = () => {
 
   return (
     <div className='max-w-screen-2xl xl:mx-auto px-5 bg-white/90 dark:bg-zinc-900/90'>
-      <Tour
-        startTour={startTour}
-        handleStartTour={handleStartTour}
-      />
-
+      {router.pathname === '/todos' && (
+        <Suspense fallback={`Loading...`}>
+          <Tour
+            startTour={startTour}
+            handleStartTour={handleStartTour}
+          />
+        </Suspense>
+      )}
       <div className={`flex items-center ${router.pathname !== '' ? 'justify-between' : 'justify-end p-5'}`}>
         {(router.pathname === '/design' || router.pathname === '/todos') && (
           <div className='cursor-pointer h-24 w-44 lg:w-52 relative flex items-center'>
