@@ -3,21 +3,21 @@ import JoyRide from 'react-joyride'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 
-const steps = [
-  {
-    target: '.create-category',
-    title: "Let's get started!",
-    content: "First, let's create a category for your todos.",
-  },
-  {
-    target: '.select-category',
-    content: 'Select the category you created.',
-  },
-  {
-    target: '.create-todo',
-    content: 'Create your first todo',
-  },
-]
+// const steps = [
+// {
+//   target: '.create-category',
+//   title: "Let's get started!",
+//   content: "First, let's create a category for your todos.",
+// },
+// {
+//   target: '.select-category',
+//   content: 'Select the category you created.',
+// },
+// {
+//   target: '.create-todo',
+//   content: 'Create your first todo',
+// },
+// ]
 
 const styles = {
   buttonNext: {
@@ -39,13 +39,30 @@ const darkStyles = {
 
 const Tour = ({ startTour, handleStartTour }) => {
   const { resolvedTheme } = useTheme()
+  const [steps, setSteps] = useState([])
 
   useEffect(() => {
     console.log('%cTour rendered', 'color:blue')
+
+    setSteps([
+      {
+        target: '.create-category',
+        title: "Let's get started!",
+        content: "First, let's create a category for your todos.",
+      },
+      {
+        target: '.select-category',
+        content: 'Select the category you created.',
+      },
+      {
+        target: '.create-todo',
+        content: 'Create your first todo',
+      },
+    ])
   }, [])
 
   const TourCallback = data => {
-    // console.log(data)
+    console.log('ciao', data)
     if (data.action === 'close') {
       console.log('close')
       handleStartTour(false)

@@ -1,13 +1,10 @@
 import { getAuth, signOut } from 'firebase/auth'
 
-import { useEffect, useState, useContext, useRef } from 'react'
+import { useEffect, useState, useContext, useRef, Suspense } from 'react'
 import { useTheme } from 'next-themes'
 import { UserContext } from '../contexts/UserContext'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
-
-//dynamic tour component import
-const Tour = dynamic(() => import('./Tour'), { ssr: false })
 
 /* FRAMEWORKS COMPONENTS */
 import { DarkModeSwitch } from 'react-toggle-dark-mode'
@@ -16,6 +13,9 @@ import { Button } from 'primereact/button'
 import { Chip } from 'primereact/chip'
 import Link from 'next/link'
 import Image from 'next/future/image'
+
+//dynamic tour component import
+const Tour = dynamic(() => import('./Tour'), { ssr: false })
 
 const Header = () => {
   const [switchState, setSwitchState] = useState(false)
@@ -67,13 +67,6 @@ const Header = () => {
     {
       label: 'Options',
       items: [
-        // {
-        //   label: 'Profile',
-        //   icon: 'pi pi-user',
-        //   command: () => {
-        //     router.push('/profile')
-        //   },
-        // },
         {
           label: 'Reset dark mode',
           icon: 'pi pi-refresh',
