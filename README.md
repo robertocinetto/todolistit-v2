@@ -15,6 +15,6 @@ The app has been developed with NextJS and few other technologies I'm going to l
 - Recoil
 - Formik
 
-It's also a **progressive web app** (**PWA**).
+It's completely **responsive**. Also, it's a **progressive web app** (**PWA**).
 
 I've designed the graphics and the logo in **Figma**. Check it out [here](https://www.figma.com/file/GsBne3EgPKa10htJVQKkGi/To-Do-Listit!).
